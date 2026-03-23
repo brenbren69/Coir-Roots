@@ -1,0 +1,52 @@
+<svg width="256" height="256" viewBox="0 0 256 256" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="ring" x1="32" y1="128" x2="224" y2="128" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#5E9800"/>
+      <stop offset="1" stop-color="#7FC400"/>
+    </linearGradient>
+    <linearGradient id="coconutShell" x1="78" y1="120" x2="178" y2="204" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#8C3D10"/>
+      <stop offset="1" stop-color="#5C2208"/>
+    </linearGradient>
+    <linearGradient id="coconutInner" x1="86" y1="120" x2="170" y2="166" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#F6C05A"/>
+      <stop offset="1" stop-color="#D88728"/>
+    </linearGradient>
+    <linearGradient id="leaf" x1="98" y1="60" x2="166" y2="110" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#8CCF00"/>
+      <stop offset="1" stop-color="#4F9700"/>
+    </linearGradient>
+  </defs>
+
+  <path d="M128 28C89 28 54.7 48.9 36.1 80.1" stroke="url(#ring)" stroke-width="12" stroke-linecap="round"/>
+  <path d="M31.4 76.1L28 107.7L56.2 92.8" fill="url(#ring)"/>
+
+  <path d="M219.8 104.8C218.3 70.6 197.4 42.3 166.8 31.2" stroke="url(#ring)" stroke-width="12" stroke-linecap="round"/>
+  <path d="M223 98.7L206.1 125.6L235.2 124.9" fill="url(#ring)"/>
+
+  <path d="M176 218.6C208.4 202.9 229.8 170.1 228 133.1" stroke="url(#ring)" stroke-width="12" stroke-linecap="round"/>
+  <path d="M169.1 219.9L200.7 223.3L185.8 195.1" fill="url(#ring)"/>
+
+  <path d="M30 132.6C31.5 176.9 59.8 213.2 99 224.2" stroke="url(#ring)" stroke-width="12" stroke-linecap="round"/>
+  <path d="M33.6 128.8L16.7 155.7L45.8 155" fill="url(#ring)"/>
+
+  <path d="M75 146C75 112.9 98.2 92 128 92C157.8 92 181 112.9 181 146C181 173.6 162.6 200 128 200C93.4 200 75 173.6 75 146Z" fill="url(#coconutShell)"/>
+  <path d="M88 138C92 110 107 95 128 95C149 95 164 110 168 138C161 150 149 156 128 156C107 156 95 150 88 138Z" fill="url(#coconutInner)"/>
+  <path d="M92 136C103 145 116 149 128 149C140 149 153 145 164 136" stroke="#FFF0BF" stroke-width="10" stroke-linecap="round"/>
+  <path d="M93 149C106 154 118 156 128 156C138 156 150 154 163 149" stroke="#E9A33D" stroke-width="5" stroke-linecap="round"/>
+
+  <path d="M96 126C104 125 111 127 116 133" stroke="#F6D786" stroke-width="4" stroke-linecap="round"/>
+  <path d="M141 133C146 127 153 125 161 126" stroke="#F6D786" stroke-width="4" stroke-linecap="round"/>
+
+  <path d="M128 121L128 74" stroke="#68A700" stroke-width="6" stroke-linecap="round"/>
+  <path d="M128 120C120 103 106 91 86 85C92 103 108 116 128 120Z" fill="url(#leaf)"/>
+  <path d="M128 108C136 91 150 79 170 73C164 91 148 104 128 108Z" fill="url(#leaf)"/>
+  <path d="M128 95C119 76 121 56 139 36C145 56 142 76 128 95Z" fill="url(#leaf)"/>
+
+  <path d="M95 91C107 90 118 95 126 105" stroke="#C8F27C" stroke-width="3" stroke-linecap="round"/>
+  <path d="M161 79C149 80 138 85 130 95" stroke="#C8F27C" stroke-width="3" stroke-linecap="round"/>
+  <path d="M133 48C133 64 131 78 128 93" stroke="#C8F27C" stroke-width="3" stroke-linecap="round"/>
+
+  <path d="M99 128C110 117 118 112 128 112C138 112 146 117 157 128" stroke="#E3A43A" stroke-width="6" stroke-linecap="round" stroke-dasharray="1 8"/>
+  <path d="M106 135C113 127 120 123 128 123C136 123 143 127 150 135" stroke="#C78628" stroke-width="5" stroke-linecap="round" stroke-dasharray="1 7"/>
+</svg>
