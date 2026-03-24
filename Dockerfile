@@ -28,6 +28,7 @@ COPY . .
 
 RUN sed -ri -e 's!/var/www/html!/var/www/html/public!g' /etc/apache2/sites-available/*.conf \
     && sed -ri -e 's!/var/www/!/var/www/html/public!g' /etc/apache2/apache2.conf \
+    && sed -i 's/AllowOverride None/AllowOverride All/g' /etc/apache2/apache2.conf \
     && sed -i 's/\r$//' docker/start-container.sh \
     && chmod +x docker/start-container.sh
 
