@@ -25,8 +25,9 @@ COPY . .
 
 RUN sed -ri -e 's!/var/www/html!/var/www/html/public!g' /etc/apache2/sites-available/*.conf \
     && sed -ri -e 's!/var/www/!/var/www/html/public!g' /etc/apache2/apache2.conf \
+    && sed -i 's/\r$//' docker/start-container.sh \
     && chmod +x docker/start-container.sh
 
-EXPOSE 80
+EXPOSE 8080
 
-CMD ["./docker/start-container.sh"]
+CMD ["sh", "-c", "APP_PORT=${PORT:-8080}; sed -ri \"s/Listen 80/Listen ${APP_PORT}/\" /etc/apache2/ports.conf; sed -ri \"s/:80>/:${APP_PORT}>/\" /etc/apache2/sites-available/000-default.conf; ./docker/start-container.sh"]
