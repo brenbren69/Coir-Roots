@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 use App\Models\UserModel;
 use App\Models\ProductModel;
+use App\Models\TransactionModel;
 
 class Admin extends BaseController
 {
@@ -119,5 +120,30 @@ class Admin extends BaseController
         $productModel->delete($id);
 
         return redirect()->to('/admin/manage_products')->with('success', 'Product deleted!');
+    }
+
+    public function orders()
+    {
+        $transactionModel = new TransactionModel();
+        $userModel = new UserModel();
+
+        $orders = $transactionModel->orderBy('created_at', 'DESC')->findAll();
+        $users = $userModel->findAll();
+
+        $usersById = [];
+        foreach ($users as $user) {
+            $usersById[$user['id']] = $user;
+        }
+
+        $orders = array_map(static function (array $order) use ($usersById): array {
+            $order['items'] = json_decode($order['items_json'], true) ?? [];
+            $order['user'] = $usersById[$order['user_id']] ?? null;
+
+            return $order;
+        }, $orders);
+
+        return view('admin/orders', [
+            'orders' => $orders,
+        ]);
     }
 }

@@ -28,7 +28,7 @@ class Support extends Controller
         }
 
         // Set email parameters
-        $email->setFrom('brendanmalabanan6@gmail.com', 'TechParts Hub Support'); // your Gmail
+        $email->setFrom('brendanmalabanan6@gmail.com', 'Coir Roots PH Support'); // your Gmail
         $email->setTo('brendanmalabanan6@gmail.com'); // where you want to receive support emails
         $email->setReplyTo($emailAddress, $name); // user's email for reply
         $email->setSubject($subject);

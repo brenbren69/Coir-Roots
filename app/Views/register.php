@@ -20,6 +20,9 @@
             --danger-bg: #fff1ee;
             --danger-text: #8b3e31;
             --danger-line: #efc6be;
+            --success-bg: #edf7e6;
+            --success-text: #2f5a22;
+            --success-line: #cfe4c1;
         }
 
         * {
@@ -107,10 +110,20 @@
             padding: 0.9rem 1rem;
             border-radius: 16px;
             margin-bottom: 1rem;
-            border: 1px solid var(--danger-line);
+            border: 1px solid transparent;
+            font-size: 0.95rem;
+        }
+
+        .alert-danger {
+            border-color: var(--danger-line);
             background: var(--danger-bg);
             color: var(--danger-text);
-            font-size: 0.95rem;
+        }
+
+        .alert-success {
+            border-color: var(--success-line);
+            background: var(--success-bg);
+            color: var(--success-text);
         }
 
         .field-grid {
@@ -312,8 +325,16 @@
             <h1>Create your account</h1>
             <p>Join a growing space focused on coconut coir, sustainability, and local eco-friendly innovation in the Philippines.</p>
 
-            <?php if (isset($validation)): ?>
-                <div class="alert"><?= $validation->listErrors() ?></div>
+            <?php if (session()->getFlashdata('error')): ?>
+                <div class="alert alert-danger"><?= esc(session()->getFlashdata('error')) ?></div>
+            <?php endif; ?>
+
+            <?php if (session()->getFlashdata('success')): ?>
+                <div class="alert alert-success"><?= esc(session()->getFlashdata('success')) ?></div>
+            <?php endif; ?>
+
+            <?php if (isset($validation) && $validation): ?>
+                <div class="alert alert-danger"><?= $validation->listErrors() ?></div>
             <?php endif; ?>
 
             <form action="<?= site_url('save') ?>" method="post">
@@ -326,6 +347,11 @@
                     <div class="field">
                         <label for="email">Email Address</label>
                         <input id="email" type="email" name="email" placeholder="you@example.com" value="<?= esc(set_value('email')) ?>" required>
+                    </div>
+
+                    <div class="field">
+                        <label for="confirm_email">Confirm Email Address</label>
+                        <input id="confirm_email" type="email" name="confirm_email" placeholder="Re-enter your email address" value="<?= esc(set_value('confirm_email')) ?>" required>
                     </div>
 
                     <div class="field">

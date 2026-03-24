@@ -1,0 +1,32 @@
+FROM php:8.2-apache
+
+RUN apt-get update && apt-get install -y \
+    git \
+    unzip \
+    libicu-dev \
+    libfreetype6-dev \
+    libjpeg62-turbo-dev \
+    libpng-dev \
+    libwebp-dev \
+    libzip-dev \
+    && docker-php-ext-configure gd --with-freetype --with-jpeg --with-webp \
+    && docker-php-ext-install intl mysqli gd zip \
+    && a2enmod rewrite \
+    && rm -rf /var/lib/apt/lists/*
+
+WORKDIR /var/www/html
+
+COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
+
+COPY composer.json composer.lock ./
+RUN composer install --no-dev --optimize-autoloader --no-interaction
+
+COPY . .
+
+RUN sed -ri -e 's!/var/www/html!/var/www/html/public!g' /etc/apache2/sites-available/*.conf \
+    && sed -ri -e 's!/var/www/!/var/www/html/public!g' /etc/apache2/apache2.conf \
+    && chmod +x docker/start-container.sh
+
+EXPOSE 80
+
+CMD ["./docker/start-container.sh"]

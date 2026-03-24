@@ -1,0 +1,13 @@
+.git
+.github
+.env
+.idea
+.vscode
+tests
+vendor
+writable/cache/*
+writable/logs/*
+writable/session/*
+node_modules
+README.md
+phpunit.xml.dist

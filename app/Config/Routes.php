@@ -14,6 +14,7 @@ $routes->get('/register', 'Auth::register');
 $routes->post('/save', 'Auth::save');
 $routes->get('/login', 'Auth::login');
 $routes->post('/auth', 'Auth::auth');
+$routes->get('/verify-email/(:segment)', 'Auth::verifyEmail/$1');
 $routes->get('/logout', 'Auth::logout');
 
 // User routes
@@ -39,6 +40,7 @@ $routes->get('/admin/delete/(:num)', 'Admin::delete/$1');
 $routes->group('admin', ['filter' => 'admin'], function($routes) {
 
     $routes->get('manage_products', 'Admin::manage_products');
+    $routes->get('orders', 'Admin::orders');
     $routes->get('add_product', 'Admin::add_product');
     $routes->post('save_product', 'Admin::save_product');
     $routes->get('edit_product/(:num)', 'Admin::edit_product/$1');

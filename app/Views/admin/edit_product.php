@@ -284,6 +284,7 @@
             <nav class="nav-actions" aria-label="Admin navigation">
                 <a class="nav-link-soft" href="<?= site_url('admin') ?>">Dashboard</a>
                 <a class="nav-link-soft" href="<?= site_url('admin/manage_products') ?>">Manage Products</a>
+                <a class="nav-link-soft" href="<?= site_url('admin/orders') ?>">Orders</a>
                 <a class="nav-link-strong" href="<?= site_url('logout') ?>">Logout</a>
             </nav>
         </div>

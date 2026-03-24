@@ -398,6 +398,7 @@
             <nav class="nav-actions" aria-label="Admin navigation">
                 <a class="nav-link-soft" href="<?= site_url('admin') ?>">Dashboard</a>
                 <a class="nav-link-soft" href="<?= site_url('admin/manage_products') ?>">Manage Products</a>
+                <a class="nav-link-soft" href="<?= site_url('admin/orders') ?>">Orders</a>
                 <a class="nav-link-strong" href="<?= site_url('logout') ?>">Logout</a>
             </nav>
         </div>
@@ -432,6 +433,10 @@
                         <a class="action-link" href="<?= site_url('admin') ?>">
                             User Accounts
                             <span>Monitor registered users and keep account information organized.</span>
+                        </a>
+                        <a class="action-link" href="<?= site_url('admin/orders') ?>">
+                            View Orders
+                            <span>See all checkout records, payment methods, and delivery choices.</span>
                         </a>
                     </div>
                 </aside>
