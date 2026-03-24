@@ -30,7 +30,6 @@ class Auth extends BaseController
         $rules = [
             'username' => 'required|min_length[3]|max_length[20]|alpha_numeric',
             'email' => 'required|valid_email|is_unique[users.email]',
-            'confirm_email' => 'required|valid_email|matches[email]',
             'mobile_number' => 'required|min_length[10]|max_length[20]',
             'address' => 'required|min_length[10]|max_length[255]',
             'password' => 'required|min_length[6]',
@@ -42,7 +41,6 @@ class Auth extends BaseController
         }
 
         $userModel = new UserModel();
-        $token = bin2hex(random_bytes(32));
 
         $data = [
             'username' => $this->request->getVar('username'),
@@ -51,23 +49,15 @@ class Auth extends BaseController
             'address' => $this->request->getVar('address'),
             'password' => password_hash($this->request->getVar('password'), PASSWORD_DEFAULT),
             'role' => 'user',
-            'email_verification_token' => $token,
-            'email_verified_at' => null,
+            'email_verification_token' => null,
+            'email_verified_at' => date('Y-m-d H:i:s'),
         ];
 
-        $userId = $userModel->insert($data, true);
-
-        if (! $userId) {
+        if (! $userModel->insert($data, true)) {
             return redirect()->back()->withInput()->with('error', 'Unable to create your account right now. Please try again.');
         }
 
-        if (! $this->sendVerificationEmail($data['email'], $data['username'], $token)) {
-            $userModel->delete($userId);
-
-            return redirect()->back()->withInput()->with('error', 'We could not send the verification email. Please check your SMTP settings and try again.');
-        }
-
-        return redirect()->to('/login')->with('success', 'Registration successful. Please check your email and verify your account before logging in.');
+        return redirect()->to('/login')->with('success', 'Registration successful. You can now log in.');
     }
 
     // Login handler (submission only)
@@ -91,10 +81,6 @@ class Auth extends BaseController
         $user = $userModel->where('email', $email)->first();
 
         if ($user && password_verify($password, $user['password'])) {
-            if (empty($user['email_verified_at'])) {
-                return redirect()->back()->withInput()->with('error', 'Please verify your email address first before logging in.');
-            }
-
             $sessionData = [
                 'id' => $user['id'],
                 'username' => $user['username'],
@@ -115,19 +101,7 @@ class Auth extends BaseController
 
     public function verifyEmail(string $token)
     {
-        $userModel = new UserModel();
-        $user = $userModel->where('email_verification_token', $token)->first();
-
-        if (! $user) {
-            return redirect()->to('/login')->with('error', 'That verification link is invalid or has already been used.');
-        }
-
-        $userModel->update($user['id'], [
-            'email_verified_at' => date('Y-m-d H:i:s'),
-            'email_verification_token' => null,
-        ]);
-
-        return redirect()->to('/login')->with('success', 'Your email has been verified. You can now log in.');
+        return redirect()->to('/login')->with('success', 'Your account is already ready to use. You can log in now.');
     }
 
     // Logout
@@ -135,23 +109,5 @@ class Auth extends BaseController
     {
         session()->destroy();
         return redirect()->to('/'); // back to landing page
-    }
-
-    protected function sendVerificationEmail(string $emailAddress, string $username, string $token): bool
-    {
-        $email = \Config\Services::email();
-        $verificationLink = site_url('verify-email/' . $token);
-
-        $email->setTo($emailAddress);
-        $email->setSubject('Verify Your Coir Roots PH Account');
-        $email->setMessage("
-            <h2>Welcome to Coir Roots PH, {$username}!</h2>
-            <p>Thank you for registering. Please verify your email address to activate your account.</p>
-            <p><a href=\"{$verificationLink}\" style=\"display:inline-block;padding:12px 20px;border-radius:999px;background:#6f4b2d;color:#fffdf8;text-decoration:none;font-weight:700;\">Verify Email</a></p>
-            <p>If the button does not work, copy and paste this link into your browser:</p>
-            <p>{$verificationLink}</p>
-        ");
-
-        return $email->send();
     }
 }

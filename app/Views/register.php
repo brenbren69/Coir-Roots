@@ -350,11 +350,6 @@
                     </div>
 
                     <div class="field">
-                        <label for="confirm_email">Confirm Email Address</label>
-                        <input id="confirm_email" type="email" name="confirm_email" placeholder="Re-enter your email address" value="<?= esc(set_value('confirm_email')) ?>" required>
-                    </div>
-
-                    <div class="field">
                         <label for="mobile_number">Mobile Number</label>
                         <input id="mobile_number" type="text" name="mobile_number" placeholder="09XXXXXXXXX" value="<?= esc(set_value('mobile_number')) ?>" required>
                     </div>
