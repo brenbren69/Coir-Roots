@@ -11,9 +11,8 @@ RUN apt-get update && apt-get install -y \
     libzip-dev \
     && docker-php-ext-configure gd --with-freetype --with-jpeg --with-webp \
     && docker-php-ext-install intl mysqli gd zip \
-    && if [ -e /etc/apache2/mods-enabled/mpm_event.load ]; then a2dismod mpm_event; fi \
-    && if [ -e /etc/apache2/mods-enabled/mpm_worker.load ]; then a2dismod mpm_worker; fi \
-    && if [ ! -e /etc/apache2/mods-enabled/mpm_prefork.load ]; then a2enmod mpm_prefork; fi \
+    && a2dismod mpm_event mpm_worker 2>/dev/null || true \
+    && a2enmod mpm_prefork \
     && a2enmod rewrite \
     && rm -rf /var/lib/apt/lists/*
 
